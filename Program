@@ -1,0 +1,120 @@
+public class Programa
+{
+    public static void Main()
+    {
+        Biblioteca biblioteca = new Biblioteca();
+        bool sair = false;
+ 
+        while (!sair)
+        {
+            Console.Clear();
+            Console.WriteLine("===== MENU =====");
+            Console.WriteLine("1. Adicionar material");
+            Console.WriteLine("2. Listar todos os materiais");
+            Console.WriteLine("3. Buscar material por título");
+            Console.WriteLine("4. Emprestar material");
+            Console.WriteLine("5. Devolver material");
+            Console.WriteLine("6. Sair");
+            Console.Write("Escolha uma opção: ");
+ 
+            int opcao = int.Parse(Console.ReadLine());
+ 
+            switch (opcao)
+            {
+                case 1:
+                    AdicionarMaterial(biblioteca);
+                    break;
+ 
+                case 2:
+                    biblioteca.ListarMateriais();
+                    break;
+ 
+                case 3:
+                    BuscarMaterial(biblioteca);
+                    break;
+ 
+                case 4:
+                    EmprestarMaterial(biblioteca);
+                    break;
+ 
+                case 5:
+                    DevolverMaterial(biblioteca);
+                    break;
+ 
+                case 6:
+                    sair = true;
+                    break;
+ 
+                default:
+                    Console.WriteLine("Opção inválida! Tente novamente.");
+                    break;
+            }
+ 
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
+        }
+    }
+ 
+    private static void AdicionarMaterial(Biblioteca biblioteca)
+    {
+        Console.WriteLine("Adicionar material (livro ou revista)");
+        Console.Write("Escolha (1) Livro ou (2) Revista: ");
+        int tipo = int.Parse(Console.ReadLine());
+ 
+        Console.Write("Título: ");
+        string titulo = Console.ReadLine();
+        Console.Write("Autor: ");
+        string autor = Console.ReadLine();
+        Console.Write("Ano de publicação: ");
+        int ano = int.Parse(Console.ReadLine());
+ 
+        if (tipo == 1)
+        {
+            Console.Write("Gênero: ");
+            string genero = Console.ReadLine();
+            Livro livro = new Livro(biblioteca.Materiais.Count + 1, titulo, autor, ano, genero);
+            biblioteca.AdicionarMaterial(livro);
+        }
+        else if (tipo == 2)
+        {
+            Console.Write("Edição: ");
+            string edicao = Console.ReadLine();
+            Revista revista = new Revista(biblioteca.Materiais.Count + 1, titulo, autor, ano, edicao);
+            biblioteca.AdicionarMaterial(revista);
+        }
+        else
+        {
+            Console.WriteLine("Tipo inválido!");
+        }
+    }
+ 
+    private static void BuscarMaterial(Biblioteca biblioteca)
+    {
+        Console.Write("Digite o título do material: ");
+        string titulo = Console.ReadLine();
+        var material = biblioteca.BuscarPorTitulo(titulo);
+ 
+        if (material != null)
+        {
+            material.ExibirInformacoes();
+        }
+        else
+        {
+            Console.WriteLine("Material não encontrado.");
+        }
+    }
+ 
+    private static void EmprestarMaterial(Biblioteca biblioteca)
+    {
+        Console.Write("Digite o título do material para emprestar: ");
+        string titulo = Console.ReadLine();
+        biblioteca.EmprestarMaterial(titulo);
+    }
+ 
+    private static void DevolverMaterial(Biblioteca biblioteca)
+    {
+        Console.Write("Digite o título do material para devolver: ");
+        string titulo = Console.ReadLine();
+        biblioteca.DevolverMaterial(titulo);
+    }
+}
