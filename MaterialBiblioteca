@@ -1,0 +1,99 @@
+// Subclasse Livro
+public class Livro : MaterialBiblioteca
+{
+    public string Genero { get; set; }
+ 
+    public Livro(int id, string titulo, string autor, int anoPublicacao, string genero)
+        : base(id, titulo, autor, anoPublicacao)
+    {
+        Genero = genero;
+    }
+ 
+    public override void ExibirInformacoes()
+    {
+        Console.WriteLine($"Livro: {Titulo} | Autor: {Autor} | Ano: {AnoPublicacao} | Gênero: {Genero} | Disponível: {Disponivel}");
+    }
+}
+ 
+// Subclasse Revista
+public class Revista : MaterialBiblioteca
+{
+    public string Edicao { get; set; }
+ 
+    public Revista(int id, string titulo, string autor, int anoPublicacao, string edicao)
+        : base(id, titulo, autor, anoPublicacao)
+    {
+        Edicao = edicao;
+    }
+ 
+    public override void ExibirInformacoes()
+    {
+        Console.WriteLine($"Revista: {Titulo} | Autor: {Autor} | Ano: {AnoPublicacao} | Edição: {Edicao} | Disponível: {Disponivel}");
+    }
+}
+ 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+ 
+public class Biblioteca
+{
+    public List<MaterialBiblioteca> Materiais { get; set; }
+ 
+    public Biblioteca()
+    {
+        Materiais = new List<MaterialBiblioteca>();
+    }
+ 
+    // Método para adicionar material
+    public void AdicionarMaterial(MaterialBiblioteca material)
+    {
+        Materiais.Add(material);
+        Console.WriteLine($"Material {material.Titulo} adicionado com sucesso.");
+    }
+ 
+    // Método para listar todos os materiais
+    public void ListarMateriais()
+    {
+        foreach (var material in Materiais)
+        {
+            material.ExibirInformacoes();
+        }
+    }
+ 
+    // Método para buscar material pelo título
+    public MaterialBiblioteca BuscarPorTitulo(string titulo)
+    {
+        var resultado = Materiais.FirstOrDefault(m => m.Titulo.Equals(titulo, StringComparison.OrdinalIgnoreCase));
+        return resultado;
+    }
+ 
+    // Método para emprestar material
+    public void EmprestarMaterial(string titulo)
+    {
+        var material = BuscarPorTitulo(titulo);
+        if (material != null)
+        {
+            material.Emprestar();
+        }
+        else
+        {
+            Console.WriteLine($"Material com título {titulo} não encontrado.");
+        }
+    }
+ 
+    // Método para devolver material
+    public void DevolverMaterial(string titulo)
+    {
+        var material = BuscarPorTitulo(titulo);
+        if (material != null)
+        {
+            material.Devolver();
+        }
+        else
+        {
+            Console.WriteLine($"Material com título {titulo} não encontrado.");
+        }
+    }
+}
+ 
