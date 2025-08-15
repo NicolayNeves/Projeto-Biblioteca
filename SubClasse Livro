@@ -1,0 +1,16 @@
+public class Livro : MaterialBiblioteca
+{
+    public string Genero { get; set; }
+ 
+    public Livro(int id, string titulo, string autor, int anoPublicacao, string genero)
+        : base(id, titulo, autor, anoPublicacao)
+    {
+        Genero = genero;
+    }
+ 
+    public override void ExibirInformacoes()
+    {
+        Console.WriteLine($"Livro: {Titulo} | Autor: {Autor} | Ano: {AnoPublicacao} | Gênero: {Genero} | Disponível: {Disponivel}");
+    }
+}
+ 
