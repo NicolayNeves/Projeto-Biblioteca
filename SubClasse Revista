@@ -1,0 +1,15 @@
+public class Revista : MaterialBiblioteca
+{
+    public string Edicao { get; set; }
+ 
+    public Revista(int id, string titulo, string autor, int anoPublicacao, string edicao)
+        : base(id, titulo, autor, anoPublicacao)
+    {
+        Edicao = edicao;
+    }
+ 
+    public override void ExibirInformacoes()
+    {
+        Console.WriteLine($"Revista: {Titulo} | Autor: {Autor} | Ano: {AnoPublicacao} | Edição: {Edicao} | Disponível: {Disponivel}");
+    }
+}
